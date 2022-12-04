@@ -1,6 +1,6 @@
-import { createTRPCProxyClient, httpBatchLink } from '@trpc/client';
-import type { AppRouter } from '@conduit/data-access/trpc';
 import { inject, InjectionToken, Provider } from '@angular/core';
+import type { AppRouter } from '@conduit/data-access/trpc';
+import { createTRPCProxyClient, httpBatchLink } from '@trpc/client';
 
 const TRPC_PROVIDER = new InjectionToken<ReturnType<typeof createTRPCProxyClient<AppRouter>>>('__TRPC_PROVIDER__');
 
@@ -12,6 +12,12 @@ export const provideClient = (url: string): Provider => ({
       links: [
         httpBatchLink({
           url,
+          fetch(url, options) {
+            return fetch(url, {
+              ...options,
+              credentials: 'include',
+            });
+          },
         }),
       ],
     }),

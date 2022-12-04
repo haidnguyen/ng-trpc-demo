@@ -10,8 +10,7 @@ const ROUTES = {
 };
 
 const app = express();
-
-app.use(cors());
+app.use(cors({ credentials: true, origin: 'http://localhost:4200' }));
 app.use(ROUTES.ASSETS, express.static(path.join(__dirname, 'assets')));
 app.use(
   ROUTES.TRPC,
