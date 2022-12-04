@@ -1,1 +1,1 @@
-export * from './lib/token-payload';
+export * from './lib/token-payload.model';

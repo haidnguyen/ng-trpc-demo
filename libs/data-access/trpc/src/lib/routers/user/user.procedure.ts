@@ -16,7 +16,6 @@ export const userCreateProcedure = procedure
       email: z.string().email(),
       username: z.string(),
       password: z.string(),
-      bio: z.string().optional(),
     })
   )
   .mutation(async ({ input }) => {
@@ -25,7 +24,6 @@ export const userCreateProcedure = procedure
       data: {
         email: input.email,
         username: input.username,
-        bio: input.bio,
         password: hashedPassword,
       },
     });
@@ -53,7 +51,6 @@ export const userLoginProcedure = procedure
     }
     const isEqual = await bcrypt.compare(input.password, user.password);
     if (!isEqual) {
-      console.log('here');
       throw new TRPCError({
         code: 'UNAUTHORIZED',
       });

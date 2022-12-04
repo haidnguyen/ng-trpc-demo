@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '@conduit/web/core';
 
 @Component({
   selector: 'conduit-header',
@@ -9,4 +10,6 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  private readonly authService = inject(AuthService);
+}
