@@ -10,7 +10,7 @@ const ROUTES = {
 };
 
 const app = express();
-app.use(cors({ credentials: true, origin: 'http://localhost:4200' }));
+app.use(cors({ credentials: true, origin: process.env.WEB_CLIENT_URL }));
 app.use(ROUTES.ASSETS, express.static(path.join(__dirname, 'assets')));
 app.use(
   ROUTES.TRPC,
@@ -20,7 +20,7 @@ app.use(
   })
 );
 
-const port = process.env.port || 3333;
+const port = process.env.port || process.env.SERVER_PORT;
 const server = app.listen(port, () => {
   Object.entries(ROUTES).forEach(([, endpoint]) => {
     console.log(`listening at http://localhost:${port}${endpoint}`);
