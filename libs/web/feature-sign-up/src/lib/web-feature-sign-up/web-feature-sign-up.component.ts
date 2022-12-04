@@ -37,7 +37,7 @@ export class WebFeatureSignUpComponent {
       .subscribe({
         next: createdUser => {
           console.log({ createdUser });
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('/login');
         },
         error: err => {
           console.log({ err });

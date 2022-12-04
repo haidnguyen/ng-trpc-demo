@@ -51,8 +51,9 @@ export const userLoginProcedure = procedure
         code: 'UNAUTHORIZED',
       });
     }
-
-    if (!(await bcrypt.compare(input.password, user.password))) {
+    const isEqual = await bcrypt.compare(input.password, user.password);
+    if (!isEqual) {
+      console.log('here');
       throw new TRPCError({
         code: 'UNAUTHORIZED',
       });

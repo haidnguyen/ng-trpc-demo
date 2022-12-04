@@ -4,16 +4,6 @@
   "sourceRoot": "libs/data-access/trpc/src",
   "projectType": "library",
   "targets": {
-    "build": {
-      "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/data-access/trpc",
-        "main": "libs/data-access/trpc/src/index.ts",
-        "tsConfig": "libs/data-access/trpc/tsconfig.lib.json",
-        "assets": ["libs/data-access/trpc/*.md"]
-      }
-    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],

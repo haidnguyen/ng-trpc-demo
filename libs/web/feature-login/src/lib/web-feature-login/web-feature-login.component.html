@@ -1,1 +1,30 @@
-<p>web-feature-login works!</p>
+<section class="flex items-center justify-center">
+  <form class="flex flex-col" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h1 class="mb-2 text-center text-4xl">Sign in</h1>
+    <a class="text-center text-green-600" routerLink="/register">Need an account?</a>
+
+    <fieldset class="mt-4 grid w-80 grid-flow-row gap-4 md:w-[30rem]">
+      <fieldset>
+        <input
+          class="h-12 rounded border border-gray-400 px-6 py-3 text-xl w-full"
+          formControlName="email"
+          type="email"
+          placeholder="Email"
+        />
+      </fieldset>
+
+      <fieldset>
+        <input
+          class="h-12 rounded border border-gray-400 px-6 py-3 text-xl w-full"
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+        />
+      </fieldset>
+    </fieldset>
+
+    <div class="mt-4 flex justify-end">
+      <button class="h-12 rounded bg-green-600 px-6 text-center text-xl text-white" type="submit">Sign in</button>
+    </div>
+  </form>
+</section>
