@@ -11,7 +11,6 @@ import { Subject, takeUntil } from 'rxjs';
   standalone: true,
   imports: [RouterModule, ReactiveFormsModule, CommonModule, FormInvalidPipe, ForFormErrorsDirective],
   templateUrl: './web-feature-sign-up.component.html',
-  styleUrls: ['./web-feature-sign-up.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WebFeatureSignUpComponent {

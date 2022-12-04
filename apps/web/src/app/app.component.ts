@@ -8,7 +8,6 @@ import { WebUiLayoutComponent } from '@conduit/web/ui-layout';
   imports: [RouterOutlet, NgIf, AsyncPipe, WebUiLayoutComponent],
   selector: 'conduit-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {}
