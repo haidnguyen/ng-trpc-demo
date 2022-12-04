@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnDestroy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { fromProcedure, injectClient, injectTokenController } from '@conduit/web/core';
+import { fromProcedure, injectClient, injectToken } from '@conduit/web/core';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -15,7 +15,7 @@ import { Subject, takeUntil } from 'rxjs';
 export default class WebFeatureLoginComponent implements OnDestroy {
   private readonly formBuilder = inject(FormBuilder);
   private readonly client = injectClient();
-  private readonly tokenController = injectTokenController();
+  private readonly token = injectToken();
   private readonly router = inject(Router);
   private readonly destroy$ = new Subject<void>();
 
@@ -39,7 +39,7 @@ export default class WebFeatureLoginComponent implements OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: credential => {
-          this.tokenController.setAccessToken(credential.user.token);
+          this.token.setAccessToken(credential.user.token);
           this.router.navigateByUrl('/home');
         },
         error: err => {

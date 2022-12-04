@@ -2,12 +2,9 @@ import { inject, InjectionToken, Provider } from '@angular/core';
 import type { AppRouter } from '@conduit/data-access/trpc';
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client';
 import { injectConfig } from '../config/config.di';
-import { TokenService } from './token.service';
+import { TokenService } from './token.di';
 
 const TRPC_PROVIDER = new InjectionToken<ReturnType<typeof createTRPCProxyClient<AppRouter>>>('__TRPC_PROVIDER__');
-
-export const injectTokenController = () => inject(TokenService);
-export const provideToken = (): Provider => TokenService;
 
 export const injectClient = () => inject(TRPC_PROVIDER);
 export const provideClient = (): Provider => ({

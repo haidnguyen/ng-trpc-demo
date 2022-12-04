@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable, Provider } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
@@ -13,3 +13,6 @@ export class TokenService {
     return this.accessToken$.getValue() ?? '';
   }
 }
+
+export const injectToken = () => inject(TokenService);
+export const provideToken = (): Provider => TokenService;
