@@ -1,5 +1,6 @@
 import { RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
+import { injectClient } from '@conduit/web/trpc';
 
 @Component({
   standalone: true,
@@ -10,4 +11,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'web';
+  readonly #client = injectClient();
 }

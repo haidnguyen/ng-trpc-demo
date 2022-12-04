@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@conduit/data-access/trpc": ["libs/data-access/trpc/src/index.ts"]
+      "@conduit/data-access/trpc": ["libs/data-access/trpc/src/index.ts"],
+      "@conduit/web/trpc": ["libs/web/trpc/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,3 +1,9 @@
 {
-  "singleQuote": true
+  "singleQuote": true,
+  "arrowParens": "avoid",
+  "printWidth": 120,
+  "htmlWhitespaceSensitivity": "ignore",
+  "semi": true,
+  "bracketSpacing": true,
+  "trailingComma": "es5"
 }
