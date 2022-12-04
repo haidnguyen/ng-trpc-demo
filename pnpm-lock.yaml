@@ -21,10 +21,13 @@ specifiers:
   '@nrwl/eslint-plugin-nx': 15.2.0
   '@nrwl/express': 15.2.0
   '@nrwl/jest': 15.2.0
+  '@nrwl/js': ^15.2.0
   '@nrwl/linter': 15.2.0
   '@nrwl/node': 15.2.0
   '@nrwl/nx-cloud': latest
   '@nrwl/workspace': 15.2.0
+  '@trpc/client': 10.0.0-rc.8
+  '@trpc/server': 10.0.0-rc.8
   '@types/express': 4.17.13
   '@types/jest': 28.1.1
   '@types/node': 18.7.1
@@ -46,6 +49,7 @@ specifiers:
   ts-node: 10.9.1
   tslib: ^2.3.0
   typescript: ~4.8.2
+  zod: ^3.19.1
   zone.js: ~0.11.4
 
 dependencies:
@@ -57,9 +61,12 @@ dependencies:
   '@angular/platform-browser': 15.0.0_qbiqfif4udibgvsmhnccc7le2y
   '@angular/platform-browser-dynamic': 15.0.0_pulbxwlpifslvvthxw6am5bday
   '@angular/router': 15.0.0_l57367eq3wdw5lfv4fnbnmcfu4
+  '@trpc/client': 10.0.0-rc.8_@trpc+server@10.0.0-rc.8
+  '@trpc/server': 10.0.0-rc.8
   express: 4.18.2
   rxjs: 7.5.7
   tslib: 2.4.1
+  zod: 3.19.1
   zone.js: 0.11.8
 
 devDependencies:
@@ -75,6 +82,7 @@ devDependencies:
   '@nrwl/eslint-plugin-nx': 15.2.0_umy4j2r6kmnnpx5axq5nzu76oy
   '@nrwl/express': 15.2.0_jtw5wea6x2thnk7m4wn4gxvmk4
   '@nrwl/jest': 15.2.0_4d4rtukfz4pp3vmcq2buf2cnxm
+  '@nrwl/js': 15.2.0_ddj24q5o32umsyw7jq2uzumsta
   '@nrwl/linter': 15.2.0_ygmu74ijifdgyenvnurozqqw3q
   '@nrwl/node': 15.2.0_2xno767vxlju76sjhqlxqdgpxq
   '@nrwl/nx-cloud': 15.0.2
@@ -2791,6 +2799,18 @@ packages:
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
     engines: {node: '>= 10'}
     dev: true
+
+  /@trpc/client/10.0.0-rc.8_@trpc+server@10.0.0-rc.8:
+    resolution: {integrity: sha512-NuQl7g1tkfFYn6P6dZJJkVsxnxutYpaxmpG/w5ZKW3QVu6cY1joUOrWakunKrghh3HS+svgLaPz0Xl0PlmdSlw==}
+    peerDependencies:
+      '@trpc/server': 10.0.0-rc.8
+    dependencies:
+      '@trpc/server': 10.0.0-rc.8
+    dev: false
+
+  /@trpc/server/10.0.0-rc.8:
+    resolution: {integrity: sha512-+NsQqaJGHTiiBcOesH1bIictnnSO+SXaCOy5pM/324QBnJRt9VOO8oYDLcHSwAbJpAbOA+vl6YHs8OoykW6D2g==}
+    dev: false
 
   /@trysound/sax/0.2.0:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
@@ -10708,6 +10728,10 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zod/3.19.1:
+    resolution: {integrity: sha512-LYjZsEDhCdYET9ikFu6dVPGp2YH9DegXjdJToSzD9rO6fy4qiRYFoyEYwps88OseJlPyl2NOe2iJuhEhL7IpEA==}
+    dev: false
 
   /zone.js/0.11.8:
     resolution: {integrity: sha512-82bctBg2hKcEJ21humWIkXRlLBBmrc3nN7DFh5LGGhcyycO2S7FN8NmdvlcKaGFDNVL4/9kFLmwmInTavdJERA==}
