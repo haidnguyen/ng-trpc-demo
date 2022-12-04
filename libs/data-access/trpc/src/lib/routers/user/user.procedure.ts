@@ -1,10 +1,11 @@
+import { TokenPayload } from '@conduit/data-access/parser';
 import { PrismaClient } from '@prisma/client';
 import { TRPCError } from '@trpc/server';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import * as R from 'remeda';
 import { z } from 'zod';
-import { procedure } from '../../trpc';
+import { procedure, protectedProcedure } from '../../trpc';
 
 const SALT_ROUNDS = 10;
 const prisma = new PrismaClient();
@@ -38,7 +39,7 @@ export const userLoginProcedure = procedure
       password: z.string(),
     })
   )
-  .query(async ({ input }) => {
+  .query(async ({ input, ctx }) => {
     const user = await prisma.user.findFirst({
       where: {
         email: input.email,
@@ -56,10 +57,13 @@ export const userLoginProcedure = procedure
         code: 'UNAUTHORIZED',
       });
     }
-
-    const token = jwt.sign({ id: user.id, username: user.username, email: user.email }, 'SECRET', {
+    const payload: TokenPayload = { id: user.id, username: user.username, email: user.email };
+    const token = jwt.sign(payload, 'SECRET', {
       expiresIn: '600s',
     });
+    const refreshToken = jwt.sign({ id: user.id }, 'REFRESH_SECRET', { expiresIn: '7 days' });
+
+    ctx.res.cookie('refreshToken', refreshToken, { httpOnly: true });
 
     return {
       user: {
@@ -68,3 +72,21 @@ export const userLoginProcedure = procedure
       },
     };
   });
+
+export const userSelfProcedure = protectedProcedure.query(async ({ ctx }) => {
+  const { userPayload } = ctx;
+
+  if (!userPayload) {
+    return { user: null };
+  }
+
+  const user = await prisma.user.findFirst({
+    where: {
+      id: userPayload.id,
+    },
+  });
+
+  return {
+    user,
+  };
+});

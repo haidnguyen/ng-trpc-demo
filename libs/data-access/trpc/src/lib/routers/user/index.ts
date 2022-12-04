@@ -1,7 +1,8 @@
 import { router } from '../../trpc';
-import { userCreateProcedure, userLoginProcedure } from './user.procedure';
+import { userCreateProcedure, userLoginProcedure, userSelfProcedure } from './user.procedure';
 
 export const userRouter = router({
   userCreate: userCreateProcedure,
   userLogin: userLoginProcedure,
+  me: userSelfProcedure,
 });

@@ -1,11 +1,35 @@
-import { inferAsyncReturnType, initTRPC } from '@trpc/server';
+import { inferAsyncReturnType, initTRPC, TRPCError } from '@trpc/server';
+import * as jwt from 'jsonwebtoken';
 import * as trpcExpress from '@trpc/server/adapters/express';
-export const createContext = (context: trpcExpress.CreateExpressContextOptions) => {
-  return context;
+import { TokenPayload, tokenPayloadParser } from '@conduit/data-access/parser';
+
+export const createContext = async (context: trpcExpress.CreateExpressContextOptions) => {
+  let userPayload: TokenPayload | null = null;
+  if (context.req.headers.authorization) {
+    const payload = jwt.verify(context.req.headers.authorization, 'SECRET');
+    userPayload = tokenPayloadParser.parse(payload);
+  }
+
+  return {
+    req: context.req,
+    res: context.res,
+    userPayload: userPayload,
+  };
 };
 type Context = inferAsyncReturnType<typeof createContext>;
 
 const t = initTRPC.context<Context>().create();
+
+const isAuthed = t.middleware(({ next, ctx }) => {
+  if (!ctx.userPayload) {
+    throw new TRPCError({ code: 'UNAUTHORIZED' });
+  }
+
+  return next({
+    ctx,
+  });
+});
 export const router = t.router;
 export const middleware = t.middleware;
 export const procedure = t.procedure;
+export const protectedProcedure = t.procedure.use(isAuthed);

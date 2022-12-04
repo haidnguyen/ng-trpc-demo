@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { fromProcedure, injectClient } from '@conduit/web/trpc';
+import { fromProcedure, injectClient, injectTokenController } from '@conduit/web/trpc';
 
 @Component({
   selector: 'conduit-web-feature-home',
@@ -12,6 +12,7 @@ import { fromProcedure, injectClient } from '@conduit/web/trpc';
 })
 export class WebFeatureHomeComponent {
   private readonly client = injectClient();
+  private readonly tokenService = injectTokenController();
 
   test() {
     fromProcedure(this.client.user.userCreate.mutate)({
@@ -29,6 +30,13 @@ export class WebFeatureHomeComponent {
       email: 'dinhhai281@gmail.com',
       password: '123456',
     }).subscribe(response => {
+      this.tokenService.setAccessToken(response.user.token);
+      console.log({ response });
+    });
+  }
+
+  getSelf() {
+    fromProcedure(this.client.user.me.query)().subscribe(response => {
       console.log({ response });
     });
   }
