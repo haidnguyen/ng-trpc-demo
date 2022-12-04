@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { fromProcedure, injectClient } from '@conduit/web/trpc';
 
@@ -10,15 +10,17 @@ import { fromProcedure, injectClient } from '@conduit/web/trpc';
   styleUrls: ['./web-feature-home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WebFeatureHomeComponent implements OnInit {
+export class WebFeatureHomeComponent {
   private readonly client = injectClient();
 
-  ngOnInit() {
+  test() {
     fromProcedure(this.client.user.userCreate.mutate)({
-      name: 'Hai',
       email: 'dinhhai281@gmail.com',
-    }).subscribe(response => {
-      console.log(response);
+      username: 'dinhhai281',
+      password: '123456',
+      bio: 'This is my bio',
+    }).subscribe(user => {
+      console.log({ user });
     });
   }
 }
