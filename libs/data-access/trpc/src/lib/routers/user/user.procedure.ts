@@ -1,5 +1,5 @@
 import { TokenPayload } from '@conduit/data-access/parser';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, User } from '@prisma/client';
 import { TRPCError } from '@trpc/server';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
@@ -27,7 +27,7 @@ export const userCreateProcedure = procedure
         password: hashedPassword,
       },
     });
-    return R.omit(user, ['password']);
+    return R.omit(user, ['password', 'refreshToken']);
   });
 
 export const userLoginProcedure = procedure
@@ -61,11 +61,19 @@ export const userLoginProcedure = procedure
     });
     const refreshToken = jwt.sign({ id: user.id }, 'REFRESH_SECRET', { expiresIn: '7 days' });
 
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        refreshToken,
+      },
+    });
     ctx.res.cookie('refreshToken', refreshToken, { httpOnly: true });
 
     return {
       user: {
-        ...R.omit(user, ['password']),
+        ...R.omit(updatedUser, ['password', 'refreshToken']),
         token,
       },
     };
@@ -86,5 +94,41 @@ export const userSelfProcedure = protectedProcedure.query(async ({ ctx }) => {
 
   return {
     user,
+  };
+});
+
+export const accessTokenProcedure = procedure.query(async ({ ctx }) => {
+  const refreshToken = z.string().parse(ctx.req.cookies.refreshToken);
+  const { id } = jwt.verify(refreshToken, 'REFRESH_SECRET') as jwt.JwtPayload & { id: User['id'] };
+  const user = await prisma.user.findFirst({
+    where: {
+      id,
+    },
+  });
+
+  if (!user || user.refreshToken !== refreshToken) {
+    throw new TRPCError({
+      code: 'UNAUTHORIZED',
+    });
+  }
+
+  const newRefreshToken = jwt.sign({ id: user.id }, 'REFRESH_SECRET', { expiresIn: '7 days' });
+  const payload: TokenPayload = { id: user.id, username: user.username, email: user.email };
+  const token = jwt.sign(payload, 'SECRET', {
+    expiresIn: '600s',
+  });
+  const updatedUser = await prisma.user.update({
+    where: {
+      id,
+    },
+    data: {
+      refreshToken: newRefreshToken,
+    },
+  });
+  ctx.res.cookie('refreshToken', newRefreshToken, { httpOnly: true });
+
+  return {
+    ...R.omit(updatedUser, ['password', 'refreshToken']),
+    token,
   };
 });

@@ -3,7 +3,7 @@ import { User } from '@prisma/client';
 import { BehaviorSubject } from 'rxjs';
 import { IS_LOGGED_STORAGE_KEY } from './auth.config';
 
-type UserCredential = Omit<User, 'password'>;
+type UserCredential = Omit<User, 'password' | 'refreshToken'>;
 
 @Injectable({
   providedIn: 'root',
