@@ -23,4 +23,13 @@ export class WebFeatureHomeComponent {
       console.log({ user });
     });
   }
+
+  login() {
+    fromProcedure(this.client.user.userLogin.query)({
+      email: 'dinhhai281@gmail.com',
+      password: '123456',
+    }).subscribe(response => {
+      console.log({ response });
+    });
+  }
 }
