@@ -18,6 +18,7 @@
       "@conduit/data-access/parser": ["libs/data-access/parser/src/index.ts"],
       "@conduit/data-access/trpc": ["libs/data-access/trpc/src/index.ts"],
       "@conduit/web/feature-home": ["libs/web/feature-home/src/index.ts"],
+      "@conduit/web/feature-sign-up": ["libs/web/feature-sign-up/src/index.ts"],
       "@conduit/web/trpc": ["libs/web/trpc/src/index.ts"],
       "@conduit/web/ui-layout": ["libs/web/ui-layout/src/index.ts"]
     }
