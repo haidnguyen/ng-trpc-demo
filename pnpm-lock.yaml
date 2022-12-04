@@ -26,6 +26,7 @@ specifiers:
   '@nrwl/node': 15.2.0
   '@nrwl/nx-cloud': latest
   '@nrwl/workspace': 15.2.0
+  '@prisma/client': ^4.6.1
   '@trpc/client': 10.0.0-rc.8
   '@trpc/server': 10.0.0-rc.8
   '@types/cors': ^2.8.12
@@ -51,6 +52,7 @@ specifiers:
   postcss-url: ~10.1.3
   prettier: ^2.6.2
   prettier-plugin-tailwindcss: ^0.1.13
+  prisma: ^4.6.1
   rxjs: ~7.5.0
   tailwindcss: ^3.0.2
   ts-jest: 28.0.5
@@ -69,6 +71,7 @@ dependencies:
   '@angular/platform-browser': 15.0.0_qbiqfif4udibgvsmhnccc7le2y
   '@angular/platform-browser-dynamic': 15.0.0_pulbxwlpifslvvthxw6am5bday
   '@angular/router': 15.0.0_l57367eq3wdw5lfv4fnbnmcfu4
+  '@prisma/client': 4.6.1_prisma@4.6.1
   '@trpc/client': 10.0.0-rc.8_@trpc+server@10.0.0-rc.8
   '@trpc/server': 10.0.0-rc.8
   cors: 2.8.5
@@ -117,6 +120,7 @@ devDependencies:
   postcss-url: 10.1.3_postcss@8.4.19
   prettier: 2.7.1
   prettier-plugin-tailwindcss: 0.1.13_prettier@2.7.1
+  prisma: 4.6.1
   tailwindcss: 3.2.4_v776zzvn44o7tpgzieipaairwm
   ts-jest: 28.0.5_a2m7a45vovkhapf5c3dybebnnu
   ts-node: 10.9.1_rhpwi32gjip3gggyfzgffz3q2q
@@ -2937,6 +2941,28 @@ packages:
       esquery: 1.4.0
       typescript: 4.8.4
     dev: true
+
+  /@prisma/client/4.6.1_prisma@4.6.1:
+    resolution: {integrity: sha512-M1+NNrMzqaOIxT7PBGcTs3IZo7d1EW/+gVQd4C4gUgWBDGgD9AcIeZnUSidgWClmpMSgVUdnVORjsWWGUameYA==}
+    engines: {node: '>=14.17'}
+    requiresBuild: true
+    peerDependencies:
+      prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+    dependencies:
+      '@prisma/engines-version': 4.6.1-3.694eea289a8462c80264df36757e4fdc129b1b32
+      prisma: 4.6.1
+    dev: false
+
+  /@prisma/engines-version/4.6.1-3.694eea289a8462c80264df36757e4fdc129b1b32:
+    resolution: {integrity: sha512-HUCmkXAU2jqp2O1RvNtbE+seLGLyJGEABZS/R38rZjSAafAy0WzBuHq+tbZMnD+b5OSCsTVtIPVcuvx1ySxcWQ==}
+    dev: false
+
+  /@prisma/engines/4.6.1:
+    resolution: {integrity: sha512-3u2/XxvxB+Q7cMXHnKU0CpBiUK1QWqpgiBv28YDo1zOIJE3FCF8DI2vrp6vuwjGt5h0JGXDSvmSf4D4maVjJdw==}
+    requiresBuild: true
 
   /@rollup/plugin-json/5.0.1_rollup@3.3.0:
     resolution: {integrity: sha512-QCwhZZLvM8nRcTHyR1vOgyTMiAnjiNj1ebD/BMRvbO1oc/z14lZH6PfxXeegee2B6mky/u9fia4fxRM4TqrUaw==}
@@ -9592,6 +9618,14 @@ packages:
       ansi-styles: 5.2.0
       react-is: 18.2.0
     dev: true
+
+  /prisma/4.6.1:
+    resolution: {integrity: sha512-BR4itMCuzrDV4tn3e2TF+nh1zIX/RVU0isKtKoN28ADeoJ9nYaMhiuRRkFd2TZN8+l/XfYzoRKyHzUFXLQhmBQ==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      '@prisma/engines': 4.6.1
 
   /proc-log/2.0.1:
     resolution: {integrity: sha512-Kcmo2FhfDTXdcbfDH76N7uBYHINxc/8GW7UAVuVP9I+Va3uHSerrnKV6dLooga/gh7GlgzuCCr/eoldnL1muGw==}
