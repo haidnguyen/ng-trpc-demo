@@ -1,15 +1,18 @@
 import { RouterModule } from '@angular/router';
-import { Component } from '@angular/core';
-import { injectClient } from '@conduit/web/trpc';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { fromProcedure, injectClient } from '@conduit/web/trpc';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, NgIf, AsyncPipe],
   selector: 'conduit-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  title = 'web';
   readonly #client = injectClient();
+
+  readonly user$ = fromProcedure(this.#client.user.getUser.query)('Hai HAHAHA');
 }

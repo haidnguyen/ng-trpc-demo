@@ -5,7 +5,7 @@ type PromiseFn = (...args: any[]) => Promise<any>;
 
 export function fromProcedure<T extends PromiseFn>(executeFn: T) {
   return (...params: Parameters<T>) => {
-    return new Observable<ReturnType<T>>(subscriber => {
+    return new Observable<ReturnType<T> extends Promise<infer U> ? U : never>(subscriber => {
       const ac = new AbortController();
 
       executeFn(params[0], { signal: ac.signal, ...params[1] })
