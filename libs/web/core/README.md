@@ -1,7 +1,7 @@
-# web-trpc
+# web-core
 
 This library was generated with [Nx](https://nx.dev).
 
 ## Running unit tests
 
-Run `nx test web-trpc` to execute the unit tests.
+Run `nx test web-core` to execute the unit tests.

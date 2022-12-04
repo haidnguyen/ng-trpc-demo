@@ -1,10 +1,9 @@
 import { Route } from '@angular/router';
-import { WebFeatureSignUpComponent } from './lib/web-feature-sign-up/web-feature-sign-up.component';
 
 export const FEATURE_SIGN_UP: Route[] = [
   {
     path: '',
-    component: WebFeatureSignUpComponent,
+    loadComponent: () => import('./lib/web-feature-sign-up/web-feature-sign-up.component'),
     title: 'Sign Up - Conduit',
   },
 ];

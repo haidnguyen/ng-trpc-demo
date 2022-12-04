@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnDestroy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { fromProcedure, injectClient, injectTokenController } from '@conduit/web/trpc';
+import { fromProcedure, injectClient, injectTokenController } from '@conduit/web/core';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -12,7 +12,7 @@ import { Subject, takeUntil } from 'rxjs';
   templateUrl: './web-feature-login.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WebFeatureLoginComponent implements OnDestroy {
+export default class WebFeatureLoginComponent implements OnDestroy {
   private readonly formBuilder = inject(FormBuilder);
   private readonly client = injectClient();
   private readonly tokenController = injectTokenController();

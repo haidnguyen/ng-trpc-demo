@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'web-trpc',
+  displayName: 'web-core',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -9,7 +9,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/web/trpc',
+  coverageDirectory: '../../../coverage/libs/web/core',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { fromProcedure, injectClient } from '@conduit/web/trpc';
+import { fromProcedure, injectClient } from '@conduit/web/core';
 import { ForFormErrorsDirective, FormInvalidPipe } from '@conduit/web/utilities';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -13,7 +13,7 @@ import { Subject, takeUntil } from 'rxjs';
   templateUrl: './web-feature-sign-up.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WebFeatureSignUpComponent {
+export default class WebFeatureSignUpComponent {
   private readonly formBuilder = inject(FormBuilder);
   private readonly client = injectClient();
   private readonly router = inject(Router);

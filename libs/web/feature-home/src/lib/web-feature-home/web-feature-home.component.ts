@@ -9,31 +9,4 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./web-feature-home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WebFeatureHomeComponent {
-  // private readonly client = injectClient();
-  // private readonly tokenService = injectTokenController();
-  // test() {
-  //   fromProcedure(this.client.user.userCreate.mutate)({
-  //     email: 'dinhhai281@gmail.com',
-  //     username: 'dinhhai281',
-  //     password: '123456',
-  //     bio: 'This is my bio',
-  //   }).subscribe(user => {
-  //     console.log({ user });
-  //   });
-  // }
-  // login() {
-  //   fromProcedure(this.client.user.userLogin.query)({
-  //     email: 'dinhhai281@gmail.com',
-  //     password: '123456',
-  //   }).subscribe(response => {
-  //     this.tokenService.setAccessToken(response.user.token);
-  //     console.log({ response });
-  //   });
-  // }
-  // getSelf() {
-  //   fromProcedure(this.client.user.me.query)().subscribe(response => {
-  //     console.log({ response });
-  //   });
-  // }
-}
+export class WebFeatureHomeComponent {}
