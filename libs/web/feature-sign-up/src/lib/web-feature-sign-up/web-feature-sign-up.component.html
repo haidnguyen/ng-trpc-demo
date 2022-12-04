@@ -1,1 +1,61 @@
-<p>web-feature-sign-up works!</p>
+<section class="flex items-center justify-center">
+  <form class="flex flex-col" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h1 class="mb-2 text-center text-4xl">Sign up</h1>
+    <a class="text-center text-green-600" routerLink="/login">Have an account?</a>
+
+    <fieldset class="mt-4 grid w-80 grid-flow-row gap-4 md:w-[30rem]">
+      <fieldset>
+        <input
+          class="h-12 rounded border border-gray-400 px-6 py-3 text-xl w-full"
+          placeholder="Username"
+          formControlName="username"
+          type="text"
+        />
+        <ng-container *ngIf="form.controls.username | formInvalid">
+          <div class="text-xs text-red-500" *conduitForFormErrors="let error of form.controls.username.errors">
+            <span *ngIf="error === 'required'">Username is required</span>
+            <span *ngIf="error === 'minlength'">At least 8 characters</span>
+          </div>
+        </ng-container>
+      </fieldset>
+
+      <fieldset>
+        <input
+          class="h-12 rounded border border-gray-400 px-6 py-3 text-xl w-full"
+          formControlName="email"
+          placeholder="Email"
+          type="email"
+        />
+        <ng-container *ngIf="form.controls.email | formInvalid">
+          <div class="text-xs text-red-500" *conduitForFormErrors="let error of form.controls.email.errors">
+            <span *ngIf="error === 'required'">Email is required</span>
+          </div>
+        </ng-container>
+      </fieldset>
+
+      <fieldset>
+        <input
+          class="h-12 rounded border border-gray-400 px-6 py-3 text-xl w-full"
+          placeholder="Password"
+          formControlName="password"
+          type="password"
+        />
+        <ng-container *ngIf="form.controls.password | formInvalid">
+          <div class="text-xs text-red-500" *conduitForFormErrors="let error of form.controls.password.errors">
+            <span *ngIf="error === 'required'">Password is required</span>
+          </div>
+        </ng-container>
+      </fieldset>
+    </fieldset>
+
+    <div class="mt-4 flex justify-end">
+      <button
+        class="h-12 rounded bg-green-600 px-6 text-center text-xl text-white"
+        [disabled]="form.invalid"
+        type="submit"
+      >
+        Sign up
+      </button>
+    </div>
+  </form>
+</section>

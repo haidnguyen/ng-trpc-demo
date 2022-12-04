@@ -53,7 +53,8 @@
           "browserTarget": "web:build:production"
         },
         "development": {
-          "browserTarget": "web:build:development"
+          "browserTarget": "web:build:development",
+          "hmr": true
         }
       },
       "defaultConfiguration": "development"
