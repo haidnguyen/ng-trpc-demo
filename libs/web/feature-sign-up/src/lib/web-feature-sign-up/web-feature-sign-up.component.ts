@@ -35,8 +35,7 @@ export default class WebFeatureSignUpComponent {
     })
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: createdUser => {
-          console.log({ createdUser });
+        next: () => {
           this.router.navigateByUrl('/login');
         },
         error: err => {

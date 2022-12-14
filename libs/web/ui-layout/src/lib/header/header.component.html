@@ -1,11 +1,18 @@
-<nav>
+<nav *ngrxLet="vm$ as vm">
   <div class="container mx-auto flex h-14 items-center justify-between py-2">
     <a class="text-primary text-2xl font-semibold" href="/">conduit</a>
 
-    <div class="grid grid-cols-3 gap-1">
+    <div class="grid grid-cols-3 gap-1" *ngIf="!vm.isAuth; else authenticated">
       <a class="text-center text-light" routerLink="/home" routerLinkActive="text-black">Home</a>
       <a class="text-center text-light" routerLink="/login" routerLinkActive="text-black">Sign in</a>
       <a class="text-center text-light" routerLink="/register" routerLinkActive="text-black">Sign up</a>
     </div>
+
+    <ng-template #authenticated>
+      <div class="grid grid-cols-2 gap-1">
+        <a class="text-center text-black" routerLink="/home">{{ vm.user?.username }}</a>
+        <button class="text-center text-light" (click)="onLogout()">Logout</button>
+      </div>
+    </ng-template>
   </div>
 </nav>

@@ -1,6 +1,9 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from '@prisma/client';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
+import { fromProcedure } from '../client/utils';
+import { injectClient } from '../core.di';
 import { IS_LOGGED_STORAGE_KEY } from './auth.config';
 
 type UserCredential = Omit<User, 'password' | 'refreshToken'>;
@@ -10,6 +13,8 @@ type UserCredential = Omit<User, 'password' | 'refreshToken'>;
 })
 export class AuthService {
   private readonly currentUser$ = new BehaviorSubject<null | UserCredential>(null);
+  private readonly client = injectClient();
+  private readonly router = inject(Router);
 
   readonly user$ = this.currentUser$.asObservable();
 
@@ -19,6 +24,21 @@ export class AuthService {
   }
 
   isUserLoggedIn() {
-    return localStorage.getItem(IS_LOGGED_STORAGE_KEY);
+    return JSON.parse(localStorage.getItem(IS_LOGGED_STORAGE_KEY) ?? 'false');
+  }
+
+  isAuth() {
+    return this.currentUser$.pipe(map(user => !!user));
+  }
+
+  logout() {
+    fromProcedure(this.client.user.userLogout.query)().subscribe(response => {
+      if (response.message === 'SUCCESS') {
+        this.router.navigateByUrl('/home');
+        this.currentUser$.next(null);
+        localStorage.removeItem(IS_LOGGED_STORAGE_KEY);
+        localStorage.setItem(IS_LOGGED_STORAGE_KEY, JSON.stringify(false));
+      }
+    });
   }
 }

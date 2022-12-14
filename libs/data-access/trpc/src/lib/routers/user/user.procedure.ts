@@ -97,6 +97,26 @@ export const userSelfProcedure = protectedProcedure.query(async ({ ctx }) => {
   };
 });
 
+export const userLogoutProcedure = protectedProcedure.query(async ({ ctx }) => {
+  const { userPayload } = ctx;
+  if (!userPayload) {
+    throw new TRPCError({
+      code: 'UNAUTHORIZED',
+    });
+  }
+
+  await prisma.user.update({
+    where: {
+      id: userPayload.id,
+    },
+    data: {
+      refreshToken: null,
+    },
+  });
+
+  return { message: 'SUCCESS' };
+});
+
 export const accessTokenProcedure = procedure.query(async ({ ctx }) => {
   const refreshToken = z.string().parse(ctx.req.cookies.refreshToken);
   const { id } = jwt.verify(refreshToken, 'REFRESH_SECRET') as jwt.JwtPayload & { id: User['id'] };
