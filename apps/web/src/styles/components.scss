@@ -1,0 +1,13 @@
+@layer components {
+  .form-field {
+
+    .ng-invalid.ng-dirty,
+    .ng-invalid.ng-touched {
+      @apply border-red-400;
+
+      &:not(:focus-visible) {
+        @apply text-red-500;
+      }
+    }
+  }
+}
