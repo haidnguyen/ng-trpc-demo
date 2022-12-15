@@ -20,6 +20,7 @@
       "@conduit/web/core": ["libs/web/core/src/index.ts"],
       "@conduit/web/feature-home": ["libs/web/feature-home/src/index.ts"],
       "@conduit/web/feature-login": ["libs/web/feature-login/src/index.ts"],
+      "@conduit/web/feature-settings": ["libs/web/feature-settings/src/index.ts"],
       "@conduit/web/feature-sign-up": ["libs/web/feature-sign-up/src/index.ts"],
       "@conduit/web/ui-layout": ["libs/web/ui-layout/src/index.ts"],
       "@conduit/web/utilities": ["libs/web/utilities/src/index.ts"]

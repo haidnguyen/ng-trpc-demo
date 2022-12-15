@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { unauthGuard } from '@conduit/web/core';
+import { authenticatedGuard, unauthGuard } from '@conduit/web/core';
 
 export const ROUTES: Route[] = [
   {
@@ -19,5 +19,10 @@ export const ROUTES: Route[] = [
     path: 'login',
     loadChildren: () => import('@conduit/web/feature-login').then(m => m.FEATURE_LOGIN_ROUTES),
     canActivate: [unauthGuard],
+  },
+  {
+    path: 'settings',
+    loadChildren: () => import('@conduit/web/feature-settings').then(m => m.FEATURE_SETTINGS_ROUTES),
+    canActivate: [authenticatedGuard],
   },
 ];
