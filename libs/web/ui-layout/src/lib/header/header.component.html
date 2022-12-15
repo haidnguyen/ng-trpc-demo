@@ -9,9 +9,14 @@
     </div>
 
     <ng-template #authenticated>
-      <div class="grid grid-cols-2 gap-1">
-        <a class="text-center text-black" routerLink="/home">{{ vm.user?.username }}</a>
-        <button class="text-center text-light" (click)="onLogout()">Logout</button>
+      <div class="grid grid-cols-4 gap-1">
+        <a class="text-center text-light" routerLink="/home" routerLinkActive="text-black">Home</a>
+        <a class="text-center text-light" routerLink="/editor" routerLinkActive="text-black">New Article</a>
+        <a class="text-center text-light" routerLink="/settings" routerLinkActive="text-black">Settings</a>
+        <a class="text-center text-light" [routerLink]="['/user', vm.user?.username]" routerLinkActive="text-black">
+          {{ vm.user?.username }}
+        </a>
+        <!-- <button class="text-center text-light" (click)="onLogout()">Logout</button> -->
       </div>
     </ng-template>
   </div>
