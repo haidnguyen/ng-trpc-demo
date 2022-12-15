@@ -12,11 +12,11 @@
   "attributeGroups": [
     "$ID",
     "$ANGULAR_ELEMENT_REF",
-    "$CLASS",
     "$DEFAULT",
     "$ANGULAR_TWO_WAY_BINDING",
     "$ANGULAR_INPUT",
     "$ANGULAR_OUTPUT",
-    "$ANGULAR_STRUCTURAL_DIRECTIVE"
+    "$ANGULAR_STRUCTURAL_DIRECTIVE",
+    "$CLASS"
   ]
 }

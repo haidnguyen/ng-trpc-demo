@@ -3,9 +3,9 @@ import { PrismaClient, User } from '@prisma/client';
 import { TRPCError } from '@trpc/server';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import * as R from 'remeda';
 import { z } from 'zod';
 import { procedure, protectedProcedure } from '../../trpc';
+import { selectWithoutCredential } from './user.selector';
 
 const SALT_ROUNDS = 10;
 const prisma = new PrismaClient();
@@ -26,8 +26,9 @@ export const userCreateProcedure = procedure
         username: input.username,
         password: hashedPassword,
       },
+      select: selectWithoutCredential,
     });
-    return R.omit(user, ['password', 'refreshToken']);
+    return user;
   });
 
 export const userLoginProcedure = procedure
@@ -68,12 +69,13 @@ export const userLoginProcedure = procedure
       data: {
         refreshToken,
       },
+      select: selectWithoutCredential,
     });
     ctx.res.cookie('refreshToken', refreshToken, { httpOnly: true });
 
     return {
       user: {
-        ...R.omit(updatedUser, ['password', 'refreshToken']),
+        ...updatedUser,
         token,
       },
     };
@@ -83,18 +85,25 @@ export const userSelfProcedure = protectedProcedure.query(async ({ ctx }) => {
   const { userPayload } = ctx;
 
   if (!userPayload) {
-    return { user: null };
+    throw new TRPCError({
+      code: 'UNAUTHORIZED',
+    });
   }
 
   const user = await prisma.user.findFirst({
     where: {
       id: userPayload.id,
     },
+    select: selectWithoutCredential,
   });
 
-  return {
-    user,
-  };
+  if (!user) {
+    throw new TRPCError({
+      code: 'NOT_FOUND',
+    });
+  }
+
+  return user;
 });
 
 export const userLogoutProcedure = protectedProcedure.query(async ({ ctx }) => {
@@ -144,11 +153,44 @@ export const accessTokenProcedure = procedure.query(async ({ ctx }) => {
     data: {
       refreshToken: newRefreshToken,
     },
+    select: selectWithoutCredential,
   });
   ctx.res.cookie('refreshToken', newRefreshToken, { httpOnly: true });
 
   return {
-    ...R.omit(updatedUser, ['password', 'refreshToken']),
+    ...updatedUser,
     token,
   };
 });
+
+export const userUpdateProcedure = protectedProcedure
+  .input(
+    z.object({
+      username: z.string(),
+      image: z.string().optional(),
+      bio: z.string().optional(),
+    })
+  )
+  .mutation(async ({ ctx, input }) => {
+    const { userPayload } = ctx;
+
+    if (!userPayload) {
+      throw new TRPCError({
+        code: 'UNAUTHORIZED',
+      });
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: userPayload.id,
+      },
+      data: {
+        username: input.username,
+        image: input.image,
+        bio: input.bio,
+      },
+      select: selectWithoutCredential,
+    });
+
+    return updatedUser;
+  });

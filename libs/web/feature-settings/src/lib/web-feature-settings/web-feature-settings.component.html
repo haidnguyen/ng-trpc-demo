@@ -1,2 +1,75 @@
-<p>web-feature-settings works!</p>
-<button (click)="logout()">logout</button>
+<section class="flex flex-col justify-center items-center container mx-auto my-6">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="w-full px-4 md:w-auto">
+    <h1 class="mb-2 text-center text-4xl">Your Settings</h1>
+
+    <div class="mt-4 grid w-full grid-flow-row gap-4 md:w-[30rem]">
+      <fieldset class="form-field">
+        <input
+          formControlName="image"
+          type="text"
+          placeholder="Image"
+          class="h-12 rounded border border-gray-400 px-6 py-3 text-xl w-full"
+        />
+      </fieldset>
+
+      <fieldset class="form-field">
+        <input
+          formControlName="username"
+          type="text"
+          placeholder="Username"
+          class="h-12 rounded border border-gray-400 px-6 py-3 text-xl w-full"
+        />
+        <ng-container *ngIf="form.controls.username | formInvalid">
+          <div *conduitForFormErrors="let error of form.controls.username.errors" class="text-xs text-red-500">
+            <span *ngIf="error === 'required'">Username is required</span>
+            <span *ngIf="error === 'minlength'">At least 8 characters</span>
+          </div>
+        </ng-container>
+      </fieldset>
+
+      <fieldset class="form-field">
+        <textarea
+          formControlName="bio"
+          placeholder="Short bio about you"
+          rows="6"
+          class="rounded border border-gray-400 px-6 py-3 text-xl w-full"
+        ></textarea>
+      </fieldset>
+
+      <fieldset class="form-field">
+        <input
+          formControlName="email"
+          type="email"
+          placeholder="Email"
+          class="h-12 rounded border border-gray-400 px-6 py-3 text-xl w-full"
+        />
+        <ng-container *ngIf="form.controls.email | formInvalid">
+          <div *conduitForFormErrors="let error of form.controls.email.errors" class="text-xs text-red-500">
+            <span *ngIf="error === 'required'">Email is required</span>
+            <span *ngIf="error === 'email'">Must be an email</span>
+          </div>
+        </ng-container>
+      </fieldset>
+    </div>
+
+    <div class="flex justify-end mt-4">
+      <button
+        type="submit"
+        class="h-12 rounded bg-green-600 px-6 text-center text-xl text-white hover:bg-green-700 transition-colors"
+      >
+        Update Settings
+      </button>
+    </div>
+
+    <hr class="my-4" />
+
+    <div class="flex">
+      <button
+        (click)="logout()"
+        class="h-10 rounded border border-red-700 px-4 text-red-700 transition-colors hover:bg-red-700 hover:text-white"
+      >
+        Or click here to logout.
+      </button>
+    </div>
+  </form>
+</section>

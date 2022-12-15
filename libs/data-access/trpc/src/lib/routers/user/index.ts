@@ -5,6 +5,7 @@ import {
   userLoginProcedure,
   userLogoutProcedure,
   userSelfProcedure,
+  userUpdateProcedure,
 } from './user.procedure';
 
 export const userRouter = router({
@@ -13,4 +14,5 @@ export const userRouter = router({
   me: userSelfProcedure,
   accessToken: accessTokenProcedure,
   userLogout: userLogoutProcedure,
+  userUpdate: userUpdateProcedure,
 });
