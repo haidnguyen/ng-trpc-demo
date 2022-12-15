@@ -37,7 +37,6 @@ export class AuthService {
         this.router.navigateByUrl('/home');
         this.currentUser$.next(null);
         localStorage.removeItem(IS_LOGGED_STORAGE_KEY);
-        localStorage.setItem(IS_LOGGED_STORAGE_KEY, JSON.stringify(false));
       }
     });
   }

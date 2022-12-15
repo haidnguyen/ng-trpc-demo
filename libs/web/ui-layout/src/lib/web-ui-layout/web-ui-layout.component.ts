@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { AuthService, fromProcedure, injectClient, injectToken } from '@conduit/web/core';
 import { Subject, takeUntil } from 'rxjs';
 import { HeaderComponent } from '../header/header.component';
@@ -17,7 +17,6 @@ export class WebUiLayoutComponent implements OnInit, OnDestroy {
   private readonly token = injectToken();
   private readonly client = injectClient();
   private readonly destroy$ = new Subject<void>();
-  private readonly router = inject(Router);
 
   ngOnInit(): void {
     if (this.authService.isUserLoggedIn()) {

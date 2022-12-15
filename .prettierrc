@@ -5,7 +5,18 @@
   "htmlWhitespaceSensitivity": "ignore",
   "semi": true,
   "bracketSpacing": true,
+  "bracketSameLine": false,
   "trailingComma": "es5",
   "plugins": ["prettier-plugin-tailwindcss"],
-  "tailwindConfig": "./apps/web/tailwind.config.js"
+  "tailwindConfig": "./apps/web/tailwind.config.js",
+  "attributeGroups": [
+    "$ID",
+    "$ANGULAR_ELEMENT_REF",
+    "$CLASS",
+    "$DEFAULT",
+    "$ANGULAR_TWO_WAY_BINDING",
+    "$ANGULAR_INPUT",
+    "$ANGULAR_OUTPUT",
+    "$ANGULAR_STRUCTURAL_DIRECTIVE"
+  ]
 }
