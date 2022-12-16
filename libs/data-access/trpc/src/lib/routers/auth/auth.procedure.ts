@@ -35,7 +35,7 @@ export const loginProcedure = procedure
     }
     const payload: TokenPayload = { id: user.id, username: user.username, email: user.email };
     const token = jwt.sign(payload, 'SECRET', {
-      expiresIn: '600s',
+      expiresIn: '120s',
     });
     const refreshToken = jwt.sign({ id: user.id }, 'REFRESH_SECRET', { expiresIn: '7 days' });
 
@@ -71,6 +71,7 @@ export const logoutProcedure = protectedProcedure.mutation(async ({ ctx }) => {
     },
   });
 
+  ctx.res.cookie('refreshToken', 'deleted', { httpOnly: true, expires: new Date(0) });
   return { message: 'SUCCESS' };
 });
 
@@ -92,7 +93,7 @@ export const accessTokenProcedure = procedure.query(async ({ ctx }) => {
   const newRefreshToken = jwt.sign({ id: user.id }, 'REFRESH_SECRET', { expiresIn: '7 days' });
   const payload: TokenPayload = { id: user.id, username: user.username, email: user.email };
   const token = jwt.sign(payload, 'SECRET', {
-    expiresIn: '600s',
+    expiresIn: '120s',
   });
   ctx.res.cookie('refreshToken', newRefreshToken, { httpOnly: true });
 

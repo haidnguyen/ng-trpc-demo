@@ -65,4 +65,8 @@ export class AuthService {
       })
     );
   }
+
+  clearStorage() {
+    localStorage.removeItem(IS_LOGGED_STORAGE_KEY);
+  }
 }

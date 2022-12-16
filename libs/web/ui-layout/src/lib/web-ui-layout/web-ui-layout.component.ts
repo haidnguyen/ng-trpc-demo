@@ -2,12 +2,13 @@ import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from '@conduit/web/core';
 import { Subject } from 'rxjs';
+import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'conduit-web-ui-layout',
   standalone: true,
-  imports: [HeaderComponent, RouterOutlet],
+  imports: [HeaderComponent, RouterOutlet, FooterComponent],
   templateUrl: './web-ui-layout.component.html',
   styleUrls: ['./web-ui-layout.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

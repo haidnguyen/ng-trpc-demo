@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService, fromProcedure, injectClient } from '@conduit/web/core';
 import { ForFormErrorsDirective, FormInvalidPipe } from '@conduit/web/utilities';
+import { User } from '@prisma/client';
 import { iif, NEVER, Subject, switchMap, takeUntil } from 'rxjs';
 
 @Component({
@@ -18,6 +19,7 @@ export default class WebFeatureSettingsComponent implements OnInit, OnDestroy {
   private readonly formBuilder = inject(NonNullableFormBuilder);
   private readonly client = injectClient();
   private readonly destroy$ = new Subject<void>();
+  userId: User['id'] | null = null;
 
   readonly form = this.formBuilder.group({
     image: [''],
@@ -41,6 +43,7 @@ export default class WebFeatureSettingsComponent implements OnInit, OnDestroy {
             username: user.username,
             image: user.image ?? '',
           });
+          this.userId = user.id;
         },
         error: (err: Error) => {
           console.log({ err });
@@ -58,7 +61,7 @@ export default class WebFeatureSettingsComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    if (this.form.invalid) {
+    if (this.form.invalid || !this.userId) {
       return;
     }
     const formValue = this.form.getRawValue();
@@ -66,6 +69,7 @@ export default class WebFeatureSettingsComponent implements OnInit, OnDestroy {
       username: formValue.username,
       bio: formValue.bio,
       image: formValue.image,
+      id: this.userId,
     })
       .pipe(takeUntil(this.destroy$))
       .subscribe(updatedUser => {

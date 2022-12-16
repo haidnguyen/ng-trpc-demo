@@ -17,6 +17,7 @@ export function fromProcedure<T extends PromiseFn>(executeFn: T) {
             subscriber.complete();
             return;
           }
+
           subscriber.error(err);
           throw err;
         });

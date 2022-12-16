@@ -60,6 +60,7 @@ export const userUpdateProcedure = protectedProcedure
       username: z.string(),
       image: z.string().optional(),
       bio: z.string().optional(),
+      id: z.number(),
     })
   )
   .mutation(async ({ ctx, input }) => {
@@ -73,7 +74,7 @@ export const userUpdateProcedure = protectedProcedure
 
     const updatedUser = await prisma.user.update({
       where: {
-        id: userPayload.id,
+        id: input.id,
       },
       data: {
         username: input.username,
