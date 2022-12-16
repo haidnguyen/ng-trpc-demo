@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnDestroy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService, fromProcedure, injectClient, injectToken } from '@conduit/web/core';
+import { AuthService } from '@conduit/web/core';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -14,8 +14,6 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export default class WebFeatureLoginComponent implements OnDestroy {
   private readonly formBuilder = inject(FormBuilder);
-  private readonly client = injectClient();
-  private readonly token = injectToken();
   private readonly router = inject(Router);
   private readonly authService = inject(AuthService);
   private readonly destroy$ = new Subject<void>();
@@ -33,15 +31,11 @@ export default class WebFeatureLoginComponent implements OnDestroy {
   onSubmit() {
     const formValue = this.form.getRawValue();
 
-    fromProcedure(this.client.user.userLogin.query)({
-      email: formValue.email,
-      password: formValue.password,
-    })
+    this.authService
+      .login({ email: formValue.email, password: formValue.password })
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: credential => {
-          this.token.setAccessToken(credential.user.token);
-          this.authService.authenticateUser(credential.user);
+        next: () => {
           this.router.navigateByUrl('/home');
         },
         error: err => {
