@@ -1,6 +1,6 @@
 # Setup database with postgreSQL
 
-You can use docker or install PostgreSQL on your machine then update the connection string in .env file (there is a .env.example file use can edit and remove .example extension)
+You can use docker or install PostgreSQL on your machine then update the connection string in .env file (there is a .env.example file you can edit and remove .example extension)
 
 then run this command to migrate data
 
